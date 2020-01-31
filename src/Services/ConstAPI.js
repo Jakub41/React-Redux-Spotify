@@ -1,12 +1,12 @@
 // Deezer API
-const DEEZER_URL = process.env.REACT_APP_DEEZER_API_URL;
-const DEEZER_HOST = process.env.REACT_APP_DEEZER_API_HOST;
-const DEEZER_KEY = process.env.REACT_APP_DEEZER_API_KEY;
+const DEEZER_URL = "https://deezerdevs-deezer.p.rapidapi.com";
+const DEEZER_HOST = "deezerdevs-deezer.p.rapidapi.com";
+const DEEZER_KEY = "47f3027363msh6e1358efed851b4p12b5d9jsn30688cd85cba";
 
 // Comment API
-const COMMENT_URL = process.env.REACT_APP_COMMENT_API_URL;
-const COMMENT_USER = process.env.REACT_APP_COMMENT_API_USERNAME;
-const COMMENT_PASS = process.env.REACT_APP_COMMENT_API_PASSWORD;
+const COMMENT_URL = "https://strive-school-testing-apis.herokuapp.com/api";
+const COMMENT_USER = "user25";
+const COMMENT_PASS = "gX7HF4hYaYyJAzpt";
 
 export {
   // DEEZER
