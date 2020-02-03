@@ -12,40 +12,47 @@ import Slider from "react-slick";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import Footer from "../Components/Footer/Footer.jsx";
-import { FaPlay } from "react-icons/fa";
+import { FaPlay, FaHeart } from "react-icons/fa";
 import { Spinner } from "../Components/Spinner/Spinner.js";
 import { useDispatch, useSelector } from "react-redux";
+import LibraryMiddleware from "../store/Middleware/LibraryMiddleware";
 
 const App = () => {
-  const [playing, setPlaying] = useState( {} );
-  const [playingImage, setPlayingImage] = useState( {} );
-  const [playingDesc, setPlayingDesc] = useState( null );
-  const [playingArtist, setPlayingArtist] = useState( null );
+  const [playing, setPlaying] = useState({});
+  const [playingImage, setPlayingImage] = useState({});
+  const [playingDesc, setPlayingDesc] = useState(null);
+  const [playingArtist, setPlayingArtist] = useState(null);
 
-  const [HideAlbumOne, setHideAlbumOne] = useState( false );
-  const [HideAlbumTwo, setHideAlbumTwo] = useState( false );
-  const [HideAlbumThree, setHideAlbumThree] = useState( false );
+  const [HideAlbumOne, setHideAlbumOne] = useState(false);
+  const [HideAlbumTwo, setHideAlbumTwo] = useState(false);
+  const [HideAlbumThree, setHideAlbumThree] = useState(false);
   const dispatch = useDispatch();
-  const { displaySpinner, displaySpinnerTwo, displaySpinnerThree, artists, artistsTwo, artistsThree } = useSelector( state => ( {
+  const {
+    displaySpinner,
+    displaySpinnerTwo,
+    displaySpinnerThree,
+    artists,
+    artistsTwo,
+    artistsThree
+  } = useSelector(state => ({
     artists: state.artistsReducer.artists,
     artistsTwo: state.artistsReducer.artistsTwo,
     artistsThree: state.artistsReducer.artistsThree,
     displaySpinner: state.artistsReducer.displaySpinner,
     displaySpinnerTwo: state.artistsReducer.displaySpinnerTwo,
-    displaySpinnerThree: state.artistsReducer.displaySpinnerThree,
-
-  } ) );
+    displaySpinnerThree: state.artistsReducer.displaySpinnerThree
+  }));
   const artistNames = {
     one: "The Beatles",
     two: "Queen",
     three: "Bee Gees"
   };
 
-  useEffect( () => {
-    dispatch( ArtistsMiddleware.getArtistOne( artistNames.one ) );
-    dispatch( ArtistsMiddleware.getArtistTwo( artistNames.two ) );
-    dispatch( ArtistsMiddleware.getArtistThree( artistNames.three ) );
-  }, [] );
+  useEffect(() => {
+    dispatch(ArtistsMiddleware.getArtistOne(artistNames.one));
+    dispatch(ArtistsMiddleware.getArtistTwo(artistNames.two));
+    dispatch(ArtistsMiddleware.getArtistThree(artistNames.three));
+  }, []);
 
   const settings = {
     dots: true,
@@ -81,7 +88,7 @@ const App = () => {
       }
     ]
   };
-  console.log( "artist", displaySpinnerThree );
+  console.log("artist", displaySpinnerThree);
 
   return (
     <div>
@@ -93,19 +100,19 @@ const App = () => {
             onChange={e => (
               !artistNames.one
                 .toLowerCase()
-                .includes( e.target.value.toLowerCase() )
-                ? setHideAlbumOne( true )
-                : setHideAlbumOne( false ),
+                .includes(e.target.value.toLowerCase())
+                ? setHideAlbumOne(true)
+                : setHideAlbumOne(false),
               !artistNames.two
                 .toLowerCase()
-                .includes( e.target.value.toLowerCase() )
-                ? setHideAlbumTwo( true )
-                : setHideAlbumTwo( false ),
+                .includes(e.target.value.toLowerCase())
+                ? setHideAlbumTwo(true)
+                : setHideAlbumTwo(false),
               !artistNames.three
                 .toLowerCase()
-                .includes( e.target.value.toLowerCase() )
-                ? setHideAlbumThree( true )
-                : setHideAlbumThree( false )
+                .includes(e.target.value.toLowerCase())
+                ? setHideAlbumThree(true)
+                : setHideAlbumThree(false)
             )}
             className="mr-sm-2"
           />
@@ -121,7 +128,7 @@ const App = () => {
           <h3>{artistNames.one}</h3>
           <Slider {...settings}>
             {artists.data &&
-              artists.data.map( ( O, key ) => (
+              artists.data.map((O, key) => (
                 <Col key={key}>
                   <Card>
                     <Card.Body>
@@ -130,31 +137,39 @@ const App = () => {
                         <img className="borderImg" src={O.album.cover}></img>
                       </Card.Title>
                       <div>
-                        <Link to={`/pages/album/${ O.album.id }`}>
+                        <Link to={`/pages/album/${O.album.id}`}>
                           <p>
                             <b>Album:</b> {O.album.title}
                           </p>
                         </Link>
                         <Button
                           onClick={() => {
-                            setPlaying( O.preview );
-                            setPlayingImage( O.album.cover );
-                            setPlayingDesc( O.album.title );
-                            setPlayingArtist( O.artist.name );
+                            setPlaying(O.preview);
+                            setPlayingImage(O.album.cover);
+                            setPlayingDesc(O.album.title);
+                            setPlayingArtist(O.artist.name);
                           }}
                           variant="outline-warning"
                         >
                           Play preview <FaPlay />
                         </Button>
                       </div>
-                      <Link to={`/pages/artist/${ O.artist.id }`}>
+                      <Link to={`/pages/artist/${O.artist.id}`}>
                         {" "}
                         <Button variant="warning">Go to artist</Button>
                       </Link>
+                      <div
+                        style={{ float: "right", cursor: "pointer" }}
+                        onClick={() =>
+                          dispatch(LibraryMiddleware.setSongToLibrary(O))
+                        }
+                      >
+                        <FaHeart />
+                      </div>
                     </Card.Body>
                   </Card>
                 </Col>
-              ) )}
+              ))}
           </Slider>
           <Spinner displaySpinner={displaySpinner} />
         </div>
@@ -168,7 +183,7 @@ const App = () => {
           <h3>{artistNames.two}</h3>
           <Slider {...settings}>
             {artistsTwo.data &&
-              artistsTwo.data.map( ( O, key ) => (
+              artistsTwo.data.map((O, key) => (
                 <Col key={key}>
                   <Card>
                     <Card.Body>
@@ -181,31 +196,39 @@ const App = () => {
                         ></img>
                       </Card.Title>
                       <div>
-                        <Link to={`/pages/album/${ O.album.id }`}>
+                        <Link to={`/pages/album/${O.album.id}`}>
                           <p>
                             <b>Album:</b> {O.album.title}
                           </p>
                         </Link>
                         <Button
                           onClick={() => {
-                            setPlaying( O.preview );
-                            setPlayingImage( O.album.cover );
-                            setPlayingDesc( O.album.title );
-                            setPlayingArtist( O.artist.name );
+                            setPlaying(O.preview);
+                            setPlayingImage(O.album.cover);
+                            setPlayingDesc(O.album.title);
+                            setPlayingArtist(O.artist.name);
                           }}
                           variant="outline-warning"
                         >
                           Play preview <FaPlay />
                         </Button>
                       </div>
-                      <Link to={`/pages/artist/${ O.artist.id }`}>
+                      <Link to={`/pages/artist/${O.artist.id}`}>
                         {" "}
                         <Button variant="warning">Go to artist</Button>
                       </Link>
+                      <div
+                        style={{ float: "right", cursor: "pointer" }}
+                        onClick={() =>
+                          dispatch(LibraryMiddleware.setSongToLibrary(O))
+                        }
+                      >
+                        <FaHeart />
+                      </div>
                     </Card.Body>
                   </Card>
                 </Col>
-              ) )}
+              ))}
           </Slider>
           <Spinner displaySpinner={displaySpinnerTwo} />
         </div>
@@ -220,7 +243,7 @@ const App = () => {
           <h3>{artistNames.three}</h3>
           <Slider {...settings}>
             {artistsThree.data &&
-              artistsThree.data.map( ( O, key ) => (
+              artistsThree.data.map((O, key) => (
                 <Col key={key}>
                   <Card>
                     <Card.Body>
@@ -233,31 +256,39 @@ const App = () => {
                         ></img>
                       </Card.Title>
                       <div>
-                        <Link to={`/pages/album/${ O.album.id }`}>
+                        <Link to={`/pages/album/${O.album.id}`}>
                           <p>
                             <b>Album:</b> {O.album.title}
                           </p>
                         </Link>
                         <Button
                           onClick={() => {
-                            setPlaying( O.preview );
-                            setPlayingImage( O.album.cover );
-                            setPlayingDesc( O.album.title );
-                            setPlayingArtist( O.artist.name );
+                            setPlaying(O.preview);
+                            setPlayingImage(O.album.cover);
+                            setPlayingDesc(O.album.title);
+                            setPlayingArtist(O.artist.name);
                           }}
                           variant="outline-warning"
                         >
                           Play preview <FaPlay />
                         </Button>
                       </div>
-                      <Link to={`/pages/artist/${ O.artist.id }`}>
+                      <Link to={`/pages/artist/${O.artist.id}`}>
                         {" "}
                         <Button variant="warning">Go to artist</Button>
                       </Link>
+                      <div
+                        style={{ float: "right", cursor: "pointer" }}
+                        onClick={() =>
+                          dispatch(LibraryMiddleware.setSongToLiberary(O))
+                        }
+                      >
+                        <FaHeart />
+                      </div>
                     </Card.Body>
                   </Card>
                 </Col>
-              ) )}
+              ))}
           </Slider>
           <Spinner displaySpinner={displaySpinnerThree} />
         </div>
