@@ -280,7 +280,7 @@ const App = () => {
                       <div
                         style={{ float: "right", cursor: "pointer" }}
                         onClick={() =>
-                          dispatch(LibraryMiddleware.setSongToLiberary(O))
+                          dispatch(LibraryMiddleware.setSongToLibrary(O))
                         }
                       >
                         <FaHeart />

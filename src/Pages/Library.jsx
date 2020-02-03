@@ -16,7 +16,7 @@ const Library = () => {
     LibrarySongs: state.LibraryReducer.LibrarySongs
   }));
 
-  console.log(LibrarySongs);
+  console.log("Do we have it???? ", LibrarySongs);
 
   return (
     <div>

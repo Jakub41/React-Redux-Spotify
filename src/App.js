@@ -5,13 +5,14 @@ import "./App.scss";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-import Artist from "./Pages/Artist.jsx";
-import Search from "./Pages/Search.jsx";
-import Home from "./Pages/Home.jsx";
-import Album from "./Pages/Album.jsx";
-import Sidebar from "./Components/Sidebar/Sidebar.jsx";
-import Sidenav from "./Components/Sidenav/Sidenav.jsx";
-import Library from "./Pages/Library.jsx"
+import Artist from "./Pages/Artist";
+import Search from "./Pages/Search";
+import Home from "./Pages/Home";
+import Album from "./Pages/Album";
+import Library from "./Pages/Library"
+import Sidebar from "./Components/Sidebar/Sidebar";
+import Sidenav from "./Components/Sidenav/Sidenav";
+
 
 function App() {
   return (
