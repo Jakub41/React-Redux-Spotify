@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch, Prompt } from "react-router";
+import { Route, Switch } from "react-router";
 import { BrowserRouter } from "react-router-dom";
 import "./App.scss";
 import "slick-carousel/slick/slick.css";
@@ -11,6 +11,7 @@ import Home from "./Pages/Home.jsx";
 import Album from "./Pages/Album.jsx";
 import Sidebar from "./Components/Sidebar/Sidebar.jsx";
 import Sidenav from "./Components/Sidenav/Sidenav.jsx";
+import Library from "./Pages/Library.jsx"
 
 function App() {
   return (
@@ -20,6 +21,8 @@ function App() {
         <Sidenav />
         <Switch>
           <Route exact path="/" component={Home} />
+
+          <Route exact path="/pages/library" component={Library} />
 
           <Route exact path="/pages/search" component={Search} />
 

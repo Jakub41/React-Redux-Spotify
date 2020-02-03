@@ -11,7 +11,7 @@ function Sidebar() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <Link to="/"> Home</Link>
-            <Link to="#"> Library</Link>
+            <Link to="/pages/library"> Library</Link>
             <Link to="/pages/search"> Search </Link>
           </Nav>
         </Navbar.Collapse>

@@ -1,11 +1,16 @@
 import { combineReducers, createStore, applyMiddleware } from "redux";
-import artistsReducer from './Reducers/artistsReducer'
-
+import { composeWithDevTools } from "redux-devtools-extension";
+import artistsReducer from "./Reducers/artistsReducer";
 import thunk from "redux-thunk";
-import logger from 'redux-logger'
-const rootReducer = combineReducers({ artistsReducer});
+import logger from "redux-logger";
+
+const rootReducer = combineReducers({ artistsReducer });
 function configureStore() {
-    return createStore(rootReducer, {}, applyMiddleware(thunk, logger))
+  return createStore(
+    rootReducer,
+    {},
+    composeWithDevTools(applyMiddleware(thunk, logger))
+  );
 }
 
 const store = configureStore();

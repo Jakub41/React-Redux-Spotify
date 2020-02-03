@@ -10,7 +10,6 @@ import {
 import ArtistsMiddleware from "../store/Middleware/ArtistsMiddleWare";
 import Slider from "react-slick";
 import PropTypes from "prop-types";
-import { getSearch } from "../Services/BaseDeezerAPI.js";
 import { Link } from "react-router-dom";
 import Footer from "../Components/Footer/Footer.jsx";
 import { FaPlay } from "react-icons/fa";

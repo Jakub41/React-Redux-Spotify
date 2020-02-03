@@ -1,5 +1,4 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import CRUDTable, {
   Fields,
   Field,
@@ -8,7 +7,7 @@ import CRUDTable, {
   DeleteForm
 } from "react-crud-table";
 import { addComment, getAllComments } from "../../Services/CRUDCommentAPI";
-import { FaHome, FaBook, FaSearch } from "react-icons/fa";
+
 // Component's Base CSS
 import "./index.css";
 

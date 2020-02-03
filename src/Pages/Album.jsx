@@ -97,17 +97,16 @@ export default class Album extends Component {
                   <Card.Title>
                     Album:{" "}
                     <b>
-                      <font Color="#e84e0f">{Albums.title}</font>
+                      <font color="#e84e0f">{Albums.title}</font>
                     </b>{" "}
                   </Card.Title>
-                  <img className="borderImg" src={Albums.cover}></img>
-
+                  <img className="borderImg" src={Albums.cover} alt={Album.title}></img>
+                  <h4>
+                    Artist: <b>{AlbumArtist.name}</b>
+                  </h4>
                   <Card.Text>
-                    <h4>
-                      Artist: <b>{AlbumArtist.name}</b>
-                    </h4>
                     {AlbumTracks.map(O => (
-                      <div style={{ margin: "10px" }}>
+                      <div key={O.id} style={{ margin: "10px" }}>
                         <p>{O.title}</p>
                         <Button
                           onClick={() => {
@@ -132,12 +131,15 @@ export default class Album extends Component {
             <Col xs={5}>
               <Card>
                 <Card.Body>
-                  <Card.Text>
+                  <Card.Title>
                     <h4>Comments:</h4>
+                  </Card.Title>
+                  <Card.Text>
                     <br />
                     <Button onClick={this.prompt}>Add rating</Button>
                     {Object.values(comments).map((key, index) => (
                       <div
+                        key={key}
                         id={`a${index}`}
                         style={{
                           borderRadius: "10px",

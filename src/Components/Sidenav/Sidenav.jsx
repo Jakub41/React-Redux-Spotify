@@ -23,7 +23,7 @@ function Sidenav() {
           <FaHome /> Home
         </Link>
         <Link
-          to="#"
+          to="/pages/library"
           onClick={e => e.preventDefault}
           className="list-group-item list-group-item-action bg-light"
         >

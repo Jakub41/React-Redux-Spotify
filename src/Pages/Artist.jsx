@@ -95,7 +95,7 @@ const Artist = () => {
                     <Slider {...settings}>
                       {artistAlbums.data &&
                         artistAlbums.data.map(O => (
-                          <Col>
+                          <Col key={O.id}>
                             <Card>
                               <Card.Body>
                                 <Card.Title>

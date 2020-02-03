@@ -29,17 +29,6 @@ const Search = () => {
     fetchAsync();
   }
 
-  function Arrow(props) {
-    const { className, style, onClick } = props;
-    return (
-      <div
-        className={className}
-        style={{ ...style, display: "block", borderRadius: "100px" }}
-        onClick={onClick}
-      />
-    );
-  }
-
   const settings = {
     dots: true,
     infinite: true,
@@ -98,13 +87,13 @@ const Search = () => {
         <Slider {...settings}>
           {artists.data &&
             artists.data.map(O => (
-              <Container>
+              <Container key={O.id}>
                 <Card style={{ width: "18rem" }}>
                   <Card.Body>
                     <Card.Title>
                       {" "}
                       {O.artist.name}{" "}
-                      <img className="borderImg" src={O.album.cover}></img>
+                      <img className="borderImg" src={O.album.cover} alt={O.album.title}></img>
                     </Card.Title>
                     <Card.Text>
                       <Link to={`/pages/album/${O.album.id}`}>
