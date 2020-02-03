@@ -5,7 +5,9 @@ import { getSearch } from "../Services/BaseDeezerAPI.js";
 import { Link } from "react-router-dom";
 import Footer from "../Components/Footer/Footer.jsx";
 import { Spinner } from "../Components/Spinner/Spinner.js";
-import { FaPlay } from "react-icons/fa";
+import { FaPlay, FaHeart } from "react-icons/fa";
+import LibraryMiddleware from "../store/Middleware/LibraryMiddleware";
+import { useDispatch, useSelector } from "react-redux";
 
 const Search = () => {
   const [artists, setArtists] = useState({});
@@ -15,6 +17,10 @@ const Search = () => {
   const [playingDesc, setPlayingDesc] = useState(null);
   const [playingArtist, setPlayingArtist] = useState(null);
   const [displaySpinner, setDisplaySpinner] = useState(false);
+  const dispatch = useDispatch();
+  const { LibrarySongs } = useSelector(state => ({
+    LibrarySongs: state.LibraryReducer.LibrarySongs
+  }));
 
   if (search != null && search.length >= 3) {
     const fetchAsync = async () => {
@@ -93,7 +99,11 @@ const Search = () => {
                     <Card.Title>
                       {" "}
                       {O.artist.name}{" "}
-                      <img className="borderImg" src={O.album.cover} alt={O.album.title}></img>
+                      <img
+                        className="borderImg"
+                        src={O.album.cover}
+                        alt={O.album.title}
+                      ></img>
                     </Card.Title>
                     <Card.Text>
                       <Link to={`/pages/album/${O.album.id}`}>
@@ -117,6 +127,14 @@ const Search = () => {
                       {" "}
                       <Button variant="warning">Go to artist</Button>
                     </Link>
+                    <div
+                      style={{ float: "right", cursor: "pointer" }}
+                      onClick={() =>
+                        dispatch(LibraryMiddleware.setSongToLibrary(O))
+                      }
+                    >
+                      <FaHeart style={{ fontSize: "15px" }} />
+                    </div>
                   </Card.Body>
                 </Card>
               </Container>
